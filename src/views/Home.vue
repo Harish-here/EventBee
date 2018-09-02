@@ -1,7 +1,24 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class='side-bar' :class="{'is-collapsed' : slide}">
+      <button v-if='!slide' @click='slide = !slide'>slide</button>
+    </div>
+    <div class='main-area'>
+      <header>
+        <button v-if='slide' @click='slide = !slide'>slide</button>
+        <h3>Event Bee</h3>
+        <div class='flex justify-between'>
+          <router-link to="/app/create">Create</router-link> 
+          <!-- <router-link to="/app/event">events</router-link> -->
+          <router-link to="/app/myself">Myself</router-link>
+          <router-link to="/app">Home</router-link>
+        </div>
+      </header>
+      <div class='action-area'>
+        <router-view/>
+      </div>
+    </div>
+    
   </div>
 </template>
 
@@ -13,6 +30,67 @@ export default {
   name: 'home',
   components: {
     HelloWorld
+  },
+  data: function(){
+    return {
+        slide:false
+    }
+  },
+  created : function(){
+
   }
 }
 </script>
+<style>
+.home{
+  display: flex;
+  flex: 1;
+  min-height: 1px;
+  overflow: hidden;
+}
+.side-bar{
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  transition: margin-left 250ms ease-out,transform 250ms ease-out;
+  width: 244px;
+  background-color: #151b26;
+}
+.side-bar.is-collapsed {
+  margin-left: -242px;
+}
+.main-area{
+      display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 920px;
+    position: relative;
+}
+header{
+  align-items: center;
+  background: #fff;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.15);
+  display: flex;
+  flex-shrink: 0;
+  padding: 0 20px;
+  border: 1px solid #fff;
+}
+.action-area,{
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 1px;
+  position: relative;
+  padding:10px;
+  background-color: #f6f8f9;
+}
+.action-area > div:first-child{
+   display: flex;
+  flex: 1 1 auto;
+  min-height: 1px;
+  position: relative;
+  padding:10px;
+}
+
+</style>
+
