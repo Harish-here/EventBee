@@ -79,10 +79,11 @@ header{
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  min-height: 1px;
+  min-height: 150px;
   position: relative;
   padding:10px;
   background-color: #f6f8f9;
+  overflow: auto;
 }
 .action-area > div:first-child{
    display: flex;

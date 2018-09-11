@@ -1,19 +1,24 @@
 <template>
     <div>
-
-        <div v-if='EventInfo.hasOwnproperty("eventName")'>
-            <label></label><label for="">{{index}}</label>
-
+        <div class='flex flex-column justify-center ba b--light-gray pa1'>
+            <div v-for='(i,index) in EventLabel' :key="i.label" class='pa2' >
+                <label class='w-50'>{{i.label}}</label><label class='w-50'>{{"sample" + EventModal[index]}}</label>
+            </div>
         </div>
+        <div v-if='ViewType === "info"'></div>
+        <div v-if='ViewType === "monitor"'></div>
+        <div v-if='ViewType === "participate"'></div>
     </div>
 </template>
 <script>
+import FormData from "@/assets/EventForm"
 export default {
     name: "Display",
     data: function(){
         return {
             AlloweView : ["info","monitor","participate"],
-            EventInfo: {}
+            EventModal: {...FormData.eCreateHolder},//holds the original value
+            EventLabel : {...FormData.eCreateForm}
         }
     },
     computed:{

@@ -3,12 +3,13 @@
         
         <div>Create A Event</div>
         <div class="flex flex-column w-70">
-            <span v-for='(j,index) in EventModel' :key='j.label' class='flex'>
-                <label>{{ j.label }}</label>
+            <span v-for='(j,index) in EventModel' :key='j.label' class='flex ma1'>
+                <label class='w-30 pa1'>{{ j.label }}</label>
                 <input v-if="j.type !== 'textarea'"
                        v-model='EventHolder[index]'
                        :type="j.type"
-                       :name='j.label' />
+                       :name='j.label'
+                       class='w-50 pa1' />
                 <textarea v-if="j.type === 'textarea'"
                          :name="j.label" id="" cols="30" rows="3"></textarea>
             </span>
@@ -16,8 +17,8 @@
             <label>Customized label <button @click='ChoosenCustom.push(JSON.parse(JSON.stringify(CustomeModel)))'>Add</button> <button @click='ChoosenCustom = []'>Remove All</button></label>
             <span v-for='(i,index) in ChoosenCustom' :key='i.index' class='flex'>
                 <input class='pa2' type="text" v-model='i.label' />
-                <input type="radio" :name='"same"+index' value="Mandoatory" v-model='i.option'>Mandoatory
-                <input type="radio" :name='"same"+index' value="optional" v-model='i.option'>optional
+                <input type="radio" :name='"option"+index' value="Mandoatory" v-model='i.option'>Mandoatory
+                <input type="radio" :name='"option"+index' value="optional" v-model='i.option'>optional
                 <select name="type" id="" v-model='i.type'>
                     <option value="text">text</option>
                     <option value="textarea">textarea</option>
@@ -49,7 +50,7 @@ export default {
         CreateEvent: function(){
             //send the data to create api
             this.EventModel.eCustom = this.ChoosenCustom;
-            
+
         }
     }
 }
