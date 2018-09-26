@@ -1,27 +1,33 @@
  const EventCreateForm = {
     eName : {
         label : "Event Name",
-        type : "text"
+        type : "text",
+        mandatory: true
     },
     eDescription : {
         label : "Event Description",
-        type : "textarea"
+        type : "textarea",
+        mandatory: true
     },
     eStartDate: {
         label: "Start Day",
-        type: "date"
+        type: "date",
+        mandatory: true
     },
     eEndDate: {
         label: "End Day",
-        type: "date"
+        type: "date",
+        mandatory: true
     },
     eTime: {
         label: "Time",
-        type: "time"
+        type: "time",
+        mandatory: true
     },
     eFee: {
         label: "Fee",
-        type: "number"
+        type: "number",
+        mandatory: true
     },
     eTags: {
         label: "Tags (comma separate)",
@@ -33,7 +39,8 @@
     },
     eLocation: {
         label: "Location",
-        type: "text"
+        type: "text",
+        mandatory: true
     },
 };
  const EventDisplay = {
