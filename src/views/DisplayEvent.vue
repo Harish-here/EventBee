@@ -12,12 +12,12 @@
                     <label class='w-50'>{{i.label}}</label>
                     <label class='w-50'>{{ ActiveEvent[index]}}</label>
                 </div>
-                <span>Registred User</span>
+                <span>Total Registred User {{ ActiveEvent.eCustom.length }}</span>
                 <table>
                     <thead><tr><td v-for='p in ActiveEvent.eCustom' :key='p.lable'>{{p.label}}</td></tr></thead>
                     <tbody>
-                        <tr v-for='j in ActiveEvent.eRegisteredUser' :key='j'>
-                            <td v-for='y in j' :key='y'>{{y}}</td>
+                        <tr v-for='j in ActiveEvent.eRegisteredUser'  :key='j'>
+                            <td v-for='(y,index) in j' v-if='index !== "UserId"' :key='y'>{{y}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -33,10 +33,10 @@
                     <label class='w-50'>{{i.label}}</label>
                     <label class='w-50'>{{ ActiveEvent[index]}}</label>
                 </div>
-                <div>
+                <div v-if='!AlreadyRegistered'>
                     <button @click='Partcipate'>Participate</button>
                 </div>
-                <div>
+                <div v-if='!AlreadyRegistered'>
                     <span v-for='(j,index) in ActiveEvent.eCustom' :key='j.label' class='flex ma1'>
                         <label class='w-30 pa1'>{{ j.label }} <sup class='red' v-if='j.mandatory'>*</sup></label>
                         <input v-if="j.type !== 'textarea'"
@@ -56,10 +56,11 @@
                         <span v-if='Error.indexOf(index) >= 0' class='red pa1'>provide a valid {{j.label}}</span>
                     </span>
                 </div>
+                <div class='tc' v-if='AlreadyRegistered'>You are already registered to this event</div>
             </div>
             
             <div v-else>No Such Events to display</div>
-            <pre>{{Register}}</pre>
+            
         </div>
     </div>
 </template>
@@ -94,6 +95,19 @@ export default {
                 return {}
             }
         },
+        AlreadyRegistered(){
+            if(this.$route.params.type == 'participate'){
+                let id = this.$store.state.CurrentUserId;
+                if(this.ActiveEvent.hasOwnProperty('id')){
+                    if(this.ActiveEvent.eRegisteredUser.findIndex(x => x.UserId == id) > -1) {
+                        return true
+                    }
+                }
+                return false
+            }else{
+                return false
+            }
+        }
         
     },
     methods: {
@@ -128,7 +142,7 @@ export default {
             this.Error.splice(this.Error.indexOf(label),1);
         },
         Partcipate: function(){
-            console.log(this.ActiveEvent.id);
+            this.Register.UserId = this.$store.state.CurrentUserId;
             this.$store.commit('RegisterAUser',{NewUser : this.Register,EventId: this.ActiveEvent.id});
             this.Register = {};
         }

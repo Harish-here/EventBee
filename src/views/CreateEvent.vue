@@ -81,6 +81,7 @@ export default {
             //send the data to create api
             this.EventHolder.eCustom = JSON.parse(JSON.stringify(this.ChoosenCustom));
             this.EventHolder.eRegisteredUser = [];// to add registered user
+            this.EventHolder.eOwnerId = this.$store.state.CurrentUserId;
             this.$store.commit('CreateEvent',this.EventHolder);
             
             this.EventHolder = {...FormData.eCreateHolder};//flushing old values

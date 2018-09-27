@@ -7,13 +7,14 @@
           <!-- <router-link to="/app/event">events</router-link> -->
           <router-link to="/app/myself" class='pa2'>Myself</router-link>
           <router-link to="/app" class='pa2'>Home</router-link>
+          
         </div>
     </div>
     <div class='main-area'>
       <header>
         <button v-if='slide' @click='slide = !slide'>slide</button>
         <h3>Event Bee</h3>
-        
+        <router-link to="/" class='pa2 fl'><button @click='$store.commit("LoggedOut")'>Log out</button></router-link>
       </header>
       <div class='action-area'>
         <router-view/>
@@ -25,21 +26,21 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+// import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'home',
-  components: {
-    HelloWorld
-  },
   data: function(){
     return {
         slide:false
     }
   },
   created : function(){
-
-  }
+    if(!this.$store.state.LoggedIn){
+      this.$router.push({path:'/'})
+    }
+  },
+  
 }
 </script>
 <style>

@@ -1,6 +1,6 @@
 <template>
     <div class='flex flex-column flex-wrap'>
-        <h3>Evmt I'm Participating</h3>
+        <h3>Event I'm Participating</h3>
         <div class='pa2 ma2 flex'>
             <div class="event-card  ml2 w-25" v-for='i in EventList' :key='i.id'  @click='moveToEvent(i.id,"participate")'>
                 <div class='w-30 bg-green pa2 white f14'>
@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <h3>Evmt I've Created</h3>
+        <h3>Event I've Created</h3>
         <div class='pa2 ma2 flex'>
 
                     <div class="event-card ml2" v-for='i in EventList' :key='i.id'  @click='moveToEvent(i.id,"monitor")'>
