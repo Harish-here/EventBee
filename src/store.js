@@ -6,10 +6,12 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     CreatedEvents: [],
-    ParticipatingEvent: [],
+    ParticipatingEvents: [],
     UserBase: [],
     CurrentUserId : '',
     LoggedIn : false,
+    GlobalEventStore: [],
+    Feed: []
   
   },
   mutations: {
@@ -49,9 +51,26 @@ export default new Vuex.Store({
       axios('https://api.myjson.com/bins/7civ4').then(data=>{
         state.UserBase = data.data;
       })
+    },
+    FetchCreatedEvent(state){
+      state.CreatedEvents = state.GlobalEventStore.filter(x => x.eOwnerId == state.CurrentUserId);
+    },
+    FetchParticipate(state){
+      state.ParticipatingEvents = state.GlobalEventStore.filter(x => {
+        return (x.eRegisteredUser.findIndex(y => y.UserId == state.CurrentUserId )) > -1
+      });
+    },
+    FetchFeed(state){
+      state.Feed = state.GlobalEventStore.filter( x => {
+        return (x.eOwnerId != state.CurrentUserId) && ((x.eRegisteredUser.findIndex(y => y.UserId != state.CurrentUserId )) > -1)
+      })
     }
   },
   actions: {
-
+      getCurrentUserData({commit}){
+        commit('FetchCreatedEvent');
+        commit('FetchParticipate');
+        commit('FetchFeed');
+      }
   }
 })

@@ -43,8 +43,9 @@ export default {
                     return (x.UserEmail == this.UserEmail && x.UserPass == this.UserPass)
                 });
                 if(index > -1){
-                    this.$store.commit('LoggedIn',this.$store.state.UserBase[index].UserId)
-                    this.$router.push({path: '/app'});
+                    this.$store.commit('LoggedIn',this.$store.state.UserBase[index].UserId)//user logged in
+                    this.$store.dispatch('getCurrentUserData');//initalize the data
+                    this.$router.push({path: '/app'});//move to the home
                 }else{
                     this.AuthFail = true;
                 }

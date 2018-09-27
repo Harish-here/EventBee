@@ -14,12 +14,14 @@
   flex-direction: column;
   bottom: 0;
   left: 0;
-  overflow: hidden;
+  overflow: auto;
   position: fixed;
   right: 0;
   top: 0;
   z-index: 0;
-  }
+  font-family: Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
+    font-size: 14px;
+}
 #nav {
   padding: 30px;
 }
