@@ -6,7 +6,11 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     CreatedEvents: [],
-
+    ParticipatingEvent: [],
+    UserBase: [],
+    CurrentUserId : '',
+    LoggedIn : false,
+  
   },
   mutations: {
     CreateEvent(state,NewEvent){
@@ -16,6 +20,17 @@ export default new Vuex.Store({
       //create new event push to global state
       state.CreatedEvents.push(NewEvent)
     },
+    GetParticipatingEvent(state){
+      //make ajax call to somewhre
+      state.ParticipatingEvent.push('')
+    },
+    RegisterAUser(state,obj){
+      let index = state.CreatedEvents.findIndex(x => x.id == obj.EventId);
+      
+      if(index > -1){
+        state.CreatedEvents[index].eRegisteredUser.push(obj.NewUser);
+      }
+    }
   },
   actions: {
 

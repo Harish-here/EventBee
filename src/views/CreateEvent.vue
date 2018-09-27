@@ -35,7 +35,7 @@
                 <button @click="ChoosenCustom.splice(index,1)">X</button>
             </span>
             <span><button @click='CreateEvent'>Create the event</button></span>
-            <pre>{{ ChoosenCustom}}</pre>
+            
         </div>
     </div>
 </template>
@@ -79,8 +79,10 @@ export default {
                 return
             }
             //send the data to create api
-            this.EventModel.eCustom = JSON.parse(JSON.stringify(this.ChoosenCustom));
+            this.EventHolder.eCustom = JSON.parse(JSON.stringify(this.ChoosenCustom));
+            this.EventHolder.eRegisteredUser = [];// to add registered user
             this.$store.commit('CreateEvent',this.EventHolder);
+            
             this.EventHolder = {...FormData.eCreateHolder};//flushing old values
             this.ChoosenCustom = [];
 

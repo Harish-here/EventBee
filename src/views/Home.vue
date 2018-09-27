@@ -2,17 +2,18 @@
   <div class="home">
     <div class='side-bar' :class="{'is-collapsed' : slide}">
       <button v-if='!slide' @click='slide = !slide'>slide</button>
+      <div class='flex flex-column'>
+          <router-link to="/app/create" class='pa2'>Create</router-link> 
+          <!-- <router-link to="/app/event">events</router-link> -->
+          <router-link to="/app/myself" class='pa2'>Myself</router-link>
+          <router-link to="/app" class='pa2'>Home</router-link>
+        </div>
     </div>
     <div class='main-area'>
       <header>
         <button v-if='slide' @click='slide = !slide'>slide</button>
         <h3>Event Bee</h3>
-        <div class='flex justify-between'>
-          <router-link to="/app/create">Create</router-link> 
-          <!-- <router-link to="/app/event">events</router-link> -->
-          <router-link to="/app/myself">Myself</router-link>
-          <router-link to="/app">Home</router-link>
-        </div>
+        
       </header>
       <div class='action-area'>
         <router-view/>
