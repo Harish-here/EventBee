@@ -7,6 +7,14 @@
     <router-view/>
   </div>
 </template>
+<script>
+export default {
+  name: 'app',
+    created(){
+        this.$store.commit('GetSampleUser')
+    }
+}
+</script>
 
 <style>
 #app {

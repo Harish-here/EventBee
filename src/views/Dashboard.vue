@@ -1,25 +1,13 @@
 <template>
-    <div class='flex-wrap'>
-        
-        <div class="event-card w-30" @click='moveToEvent()'>
-            <div class='w-30 bg-green pa2 white f14'>
-                <span>12</span>
-                <span>Oct 18</span>
-                <span>12.00 pm</span>
-            </div>
-            <div class='w-60 pa2'>
-                <div>Name of the event</div>
-                <div>cheppakk</div>
-                <div>To : 10 aug 2018</div>
-                <div>sample dess ,lndjdnkjdnk</div>
-                <div></div>
-            </div>
-        </div>
+    <div class=' flex flex-column flex-wrap'>
+        <EventCard :EventData='EventFeed' Type='participate' />
     </div>
 </template>
 
 <script>
 // import axios from 'axios'
+import EventCard from '@/components/EventCard'
+
 export default {
     name: "dashboard",
     data: function(){
@@ -27,10 +15,16 @@ export default {
             eventList : []
         }
     },
-    methods : {
-        moveToEvent: function(){
-            //move to the respective event along with the type
+    components:{
+      EventCard  
+    },
+    computed: {
+        EventFeed(){
+            return this.$store.state.Feed
         }
+    },
+    methods : {
+        
     },
     created : function(){
         // const self = this;

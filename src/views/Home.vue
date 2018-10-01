@@ -1,18 +1,20 @@
 <template>
   <div class="home">
     <div class='side-bar' :class="{'is-collapsed' : slide}">
-      <button v-if='!slide' @click='slide = !slide'>slide</button>
+      <!-- <button v-if='!slide' @click='slide = !slide'>slide</button> -->
+      <span v-if='!slide' @click='slide = !slide' class='fr'><i class="fa fa-chevron-left white f2" aria-hidden="true"></i></span>
       <div class='flex flex-column'>
-          <router-link to="/app/create" class='pa2'>Create</router-link> 
+          <router-link to="/app/create" class='pa2 nav-link f3'>Create</router-link> 
           <!-- <router-link to="/app/event">events</router-link> -->
-          <router-link to="/app/myself" class='pa2'>Myself</router-link>
-          <router-link to="/app" class='pa2'>Home</router-link>
+          <router-link to="/app/myself" class='pa2 nav-link f3'>Myself</router-link>
+          <router-link to="/app" class='pa2 nav-link f3'>Home</router-link>
           
         </div>
     </div>
     <div class='main-area'>
       <header>
-        <button v-if='slide' @click='slide = !slide'>slide</button>
+        <!-- <button v-if='slide' @click='slide = !slide'>slide</button> -->
+        <span v-if='slide' @click='slide = !slide' class='pa2 cursor'><i class="fa fa-bars f2" aria-hidden="true"></i></span>
         <h3>Event Bee</h3>
         <router-link to="/" class='pa2 fl'><button @click='$store.commit("LoggedOut")'>Log out</button></router-link>
       </header>
@@ -27,6 +29,7 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
+import EventCard from '@/components/EventCard'
 
 export default {
   name: 'home',
@@ -34,6 +37,9 @@ export default {
     return {
         slide:false
     }
+  },
+  components: {
+   EventCard 
   },
   created : function(){
     if(!this.$store.state.LoggedIn){
@@ -51,7 +57,7 @@ export default {
   overflow: hidden;
 }
 .side-bar{
-  display: flex;
+  /* display: flex; */
   flex: 0 0 auto;
   flex-direction: column;
   transition: margin-left 250ms ease-out,transform 250ms ease-out;
@@ -94,6 +100,11 @@ header{
   position: relative;
   padding:10px;
 }
-
+.nav-link{
+padding: 1rem;
+text-decoration: none;
+font-weight: 600;
+color:#fff;
+}
 </style>
 

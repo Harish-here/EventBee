@@ -23,7 +23,7 @@
                     </div>
                 
             </article>
-            <div v-if='isSignedUp'>You're signed up</div>
+            <div v-if='isSignedUp'>You're signed up  <router-link to='/'><input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6"  value="Back to Login"></router-link></div>
     </div>
 </template>
 <script>

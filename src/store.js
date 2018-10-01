@@ -20,7 +20,7 @@ export default new Vuex.Store({
       let id = Math.floor(Math.random() * Math.floor(2000));
       NewEvent['id'] = id;
       //create new event push to global state
-      state.CreatedEvents.push(NewEvent)
+      state.GlobalEventStore.push(NewEvent)
     },
     GetParticipatingEvent(state){
       //make ajax call to somewhre
@@ -28,10 +28,10 @@ export default new Vuex.Store({
     },
     RegisterAUser(state,obj){
       //register a user for event
-      let index = state.CreatedEvents.findIndex(x => x.id == obj.EventId);
+      let index = state.GlobalEventStore.findIndex(x => x.id == obj.EventId);
       
       if(index > -1){
-        state.CreatedEvents[index].eRegisteredUser.push(obj.NewUser);
+        state.GlobalEventStore[index].eRegisteredUser.push(obj.NewUser);
       }
     },
     SignUpNewUser(state,NewUser){
@@ -48,8 +48,11 @@ export default new Vuex.Store({
       state.LoggedIn = false;
     },
     GetSampleUser(state){
-      axios('https://api.myjson.com/bins/7civ4').then(data=>{
+      axios('https://api.myjson.com/bins/197l2w').then(data=>{
         state.UserBase = data.data;
+      });
+      axios('https://api.myjson.com/bins/euh88').then(data=>{
+        state.GlobalEventStore = data.data;
       })
     },
     FetchCreatedEvent(state){
@@ -57,12 +60,12 @@ export default new Vuex.Store({
     },
     FetchParticipate(state){
       state.ParticipatingEvents = state.GlobalEventStore.filter(x => {
-        return (x.eRegisteredUser.findIndex(y => y.UserId == state.CurrentUserId )) > -1
+        return ((x.eRegisteredUser.findIndex(y => y.UserId == state.CurrentUserId )) > -1)
       });
     },
     FetchFeed(state){
       state.Feed = state.GlobalEventStore.filter( x => {
-        return (x.eOwnerId != state.CurrentUserId) && ((x.eRegisteredUser.findIndex(y => y.UserId != state.CurrentUserId )) > -1)
+        return (x.eOwnerId != state.CurrentUserId) && ((x.eRegisteredUser.findIndex(y => y.UserId == state.CurrentUserId )) == -1)
       })
     }
   },

@@ -38,10 +38,13 @@ export default {
     },
     methods: {
         LogIn: function(){
+            console.log(this.$store.state.UserBase.length)
             if(this.UserEmail !== '' && this.UserPass !== ''){
                 let index = this.$store.state.UserBase.findIndex(x =>{
+                    console.log((x.UserEmail == this.UserEmail && x.UserPass == this.UserPass));
                     return (x.UserEmail == this.UserEmail && x.UserPass == this.UserPass)
                 });
+                
                 if(index > -1){
                     this.$store.commit('LoggedIn',this.$store.state.UserBase[index].UserId)//user logged in
                     this.$store.dispatch('getCurrentUserData');//initalize the data
@@ -55,7 +58,7 @@ export default {
         }
     },
     created(){
-        this.$store.commit('GetSampleUser')
+        // this.$store.commit('GetSampleUser')
     }
 
 }

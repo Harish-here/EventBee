@@ -8,11 +8,12 @@
         <div v-if='View === "monitor"' class='w-100'>
             <div class='flex flex-column w-70 justify-center ba b--light-gray pa1'
                  v-if='ActiveEvent !== undefined && ActiveEvent.hasOwnProperty("id")'>
+                 <button class='fr'>Edit</button>
                 <div v-for='(i,index) in EventLabel' :key="i.label" class='pa2 flex w-100' >
                     <label class='w-50'>{{i.label}}</label>
                     <label class='w-50'>{{ ActiveEvent[index]}}</label>
                 </div>
-                <span>Total Registred User {{ ActiveEvent.eCustom.length }}</span>
+                <span>Total Registred User {{ ActiveEvent.eRegisteredUser.length }}</span>
                 <table>
                     <thead><tr><td v-for='p in ActiveEvent.eCustom' :key='p.lable'>{{p.label}}</td></tr></thead>
                     <tbody>
@@ -88,9 +89,14 @@ export default {
         },
         ActiveEvent(){
             // const self = this;
-            let ind = this.$store.state.CreatedEvents.findIndex(x => x.id === Number(this.EventId) );
-            if(ind >= 0){
-                return this.$store.state.CreatedEvents[ind]
+            const o = this.$store.state;
+            let active = [];
+            if(this.View === 'participate') active = o.GlobalEventStore;
+            if(this.View === 'monitor') active = o.CreatedEvents;
+            if(this.View === 'info') active = o.Feed;
+            let ind = active.findIndex(x => Number(x.id) === Number(this.EventId) );
+            if(ind > -1){
+                return active[ind]
             }else{
                 return {}
             }
@@ -144,6 +150,7 @@ export default {
         Partcipate: function(){
             this.Register.UserId = this.$store.state.CurrentUserId;
             this.$store.commit('RegisterAUser',{NewUser : this.Register,EventId: this.ActiveEvent.id});
+            this.$store.dispatch('getCurrentUserData');
             this.Register = {};
         }
     },

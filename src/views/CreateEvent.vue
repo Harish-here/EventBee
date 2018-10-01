@@ -3,7 +3,7 @@
         
         <h3>Create A Event</h3>
         <div class="flex flex-column w-80">
-            <span v-for='(j,index) in EventModel' :key='j.label' class='flex ma1'>
+            <span v-for='(j,index) in EventModel' :key='j.label' class='flex ma1 pa1'>
                 <label class='w-30 pa1'>{{ j.label }} <sup class='red' v-if='j.mandatory'>*</sup></label>
                 <input v-if="j.type !== 'textarea'"
                        v-model='EventHolder[index]'
@@ -12,18 +12,20 @@
                        @focusin='TempRemoveLabel(index)'
                        @focusout="ValidateField(index,j)"
                        :class='{"ba b--red" : Error.indexOf(index) >= 0}'
-                       class='w-40 pa1' />
+                       class='' />
                 <textarea v-if="j.type === 'textarea'"
-                         :name="j.label" id="" cols="30" rows="3"
+                         :name="j.label" id="" cols="40" rows="3"
                          :class='{"ba b--red" : Error.indexOf(index) >= 0}'
+                         @focusin='TempRemoveLabel(index)'
+                         @focusout="ValidateField(index,j)"
                          v-model='EventHolder[index]'>
                 </textarea>
-                <span v-if='Error.indexOf(index) >= 0' class='red pa1'>provide a valid {{j.label}}</span>
+                <span v-if='Error.indexOf(index) >= 0' class='red pa1'>Provide a Valid {{j.label}}</span>
             </span>
             
-            <label>Customized label for particpant <button @click='ChoosenCustom.push(JSON.parse(JSON.stringify(CustomeModel)))'>Add</button> <button @click='ChoosenCustom = []'>Remove All</button></label>
-            <span v-for='(i,index) in ChoosenCustom' :key='i.index' class='flex'>
-                <input class='pa2' type="text" v-model='i.label' />
+            <label class='pa2'>Customized label for particpant <button @click='ChoosenCustom.push(JSON.parse(JSON.stringify(CustomeModel)))'>Add</button> <button @click='ChoosenCustom = []'>Remove All</button></label>
+            <span v-for='(i,index) in ChoosenCustom' :key='i.index' class='flex pa2'>
+                <input class='' type="text" v-model='i.label' />
                 <input type="checkbox" :name='"option"+index' v-model='i.option'>Mandoatory
                 <!-- <input type="radio" :name='"option"+index' value="optional" v-model='i.option'>optional -->
                 <select name="type" id="" v-model='i.type'>
@@ -78,11 +80,13 @@ export default {
                 alert('Atleast one customize field need to be there')
                 return
             }
+
             //send the data to create api
             this.EventHolder.eCustom = JSON.parse(JSON.stringify(this.ChoosenCustom));
             this.EventHolder.eRegisteredUser = [];// to add registered user
             this.EventHolder.eOwnerId = this.$store.state.CurrentUserId;
             this.$store.commit('CreateEvent',this.EventHolder);
+            this.$store.dispatch('getCurrentUserData'); //refresh the gurrent user data; 
             
             this.EventHolder = {...FormData.eCreateHolder};//flushing old values
             this.ChoosenCustom = [];
@@ -121,4 +125,11 @@ export default {
     }
 }
 </script>
+<style>
+input,textarea{
+    width:250px !important;
+    height: 30px !important;
+}
+</style>
+
 
