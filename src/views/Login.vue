@@ -1,27 +1,30 @@
 <template>
-    <div class='flex justify-center items-center'>
-        <div id='login-box' class='ba b--light-gray'>
-            <article class="pa4 black-80 w-60">
-                <!-- <form accept-charset="utf-8"> -->
-                    <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
-                    <legend class="ph0 mh0 fw6 clip">Log in</legend>
-                    <div class="mt3">
-                        <label class="db fw4 lh-copy f6" for="email-address">Email address</label>
-                        <input v-model='UserEmail' class="pa2 input-reset ba bg-transparent  measure" type="email" name="email-address">
-                    </div>
-                    <div class="mt3">
-                        <label class="db fw4 lh-copy f6" for="password">Password</label>
-                        <input v-model='UserPass' class="b pa2 input-reset ba bg-transparent" type="password" name="password"  id="password">
-                    </div>
-                    </fieldset>
-                    <div class="mt3">
-                        <input @click='LogIn' class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6" type="submit" value="Log In">
-                        <router-link to='/signup'><input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6"  value="Sign Up"></router-link>
-                    </div>
-                
-            </article>
-            <div class='red' v-if='AuthFail'>Email or Passowrd is wrong</div>
-
+    <div id='container' class='flex justify-center items-center'>
+        <div id='login-box' class='ba b--light-silver w-25 flex flex-coulmn justify-center'>
+            <div class=''>
+                <div class='tc f3 pa1'>EventBee</div>
+                <article class="pa2 black-80 w-100">
+                    <form accept-charset="utf-8" v-on:submit.prevent='LogIn'>
+                        <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
+                        <legend class="ph0 mh0 fw6 clip">Log in</legend>
+                        <div class="mt3">
+                            <label class="db fw4 lh-copy f6" for="email-address">Email address</label>
+                            <input v-model='UserEmail' class="pa2 input-reset ba  w-100" type="email" name="email-address" required>
+                        </div>
+                        <div class="mt3">
+                            <label class="db fw4 lh-copy f6" for="password">Password</label>
+                            <input v-model='UserPass' class="b pa2 input-reset ba  w-100" type="password" name="password"  id="password" required>
+                        </div>
+                        </fieldset>
+                        <div class="mt3 tc">
+                            <input class="b ph3 pv2 input-reset ba b--black  grow pointer f6" type="submit" value="Log In">
+                            <router-link to='/signup'></router-link>
+                        </div>
+                    </form>
+                        <div class='mt3'>Haven't signed up? <router-link to='/signup'>Signup Here</router-link></div>
+                </article>
+                <div class='red tc' v-if='AuthFail'>Email or Passowrd is wrong</div>
+            </div>
         </div>
     </div>
 </template>
@@ -38,10 +41,8 @@ export default {
     },
     methods: {
         LogIn: function(){
-            console.log(this.$store.state.UserBase.length)
             if(this.UserEmail !== '' && this.UserPass !== ''){
                 let index = this.$store.state.UserBase.findIndex(x =>{
-                    console.log((x.UserEmail == this.UserEmail && x.UserPass == this.UserPass));
                     return (x.UserEmail == this.UserEmail && x.UserPass == this.UserPass)
                 });
                 
@@ -64,9 +65,12 @@ export default {
 }
 </script>
 <style>
+#container{
+    height:100%;
+}
 #login-box{
-    width:250px;
-    height: 250px;
+    min-width:350px;;
+    min-height: 350px;
 }
 </style>
 

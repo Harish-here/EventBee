@@ -3,11 +3,11 @@
     <div class='side-bar' :class="{'is-collapsed' : slide}">
       <!-- <button v-if='!slide' @click='slide = !slide'>slide</button> -->
       <span v-if='!slide' @click='slide = !slide' class='fr'><i class="fa fa-chevron-left white f2" aria-hidden="true"></i></span>
-      <div class='flex flex-column'>
-          <router-link to="/app/create" class='pa2 nav-link f3'>Create</router-link> 
+      <div class='flex flex-column justify-center'>
+          <router-link to="/app/create" class='pa2 nav-link f4'>Create</router-link> 
           <!-- <router-link to="/app/event">events</router-link> -->
-          <router-link to="/app/myself" class='pa2 nav-link f3'>Myself</router-link>
-          <router-link to="/app" class='pa2 nav-link f3'>Home</router-link>
+          <router-link to="/app/myself" class='pa2 nav-link f4'>Myself</router-link>
+          <router-link to="/app" class='pa2 nav-link f4'>Home</router-link>
           
         </div>
     </div>
@@ -83,22 +83,21 @@ header{
   padding: 0 20px;
   border: 1px solid #fff;
 }
-.action-area,{
+.action-area{
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
   min-height: 150px;
   position: relative;
-  padding:10px;
   background-color: #f6f8f9;
   overflow: auto;
 }
 .action-area > div:first-child{
-   display: flex;
-  flex: 1 1 auto;
+   
   min-height: 1px;
   position: relative;
-  padding:10px;
+  padding:20px;
+  overflow: auto;
 }
 .nav-link{
 padding: 1rem;

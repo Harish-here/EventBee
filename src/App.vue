@@ -1,9 +1,5 @@
 <template>
   <div id="app">
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
     <router-view/>
   </div>
 </template>
@@ -17,6 +13,9 @@ export default {
 </script>
 
 <style>
+html,body{
+  height:100%;
+}
 #app {
   display: flex;
   flex-direction: column;
@@ -27,7 +26,7 @@ export default {
   right: 0;
   top: 0;
   z-index: 0;
-  font-family: Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
+  font-family: 'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
     font-size: 14px;
 }
 #nav {

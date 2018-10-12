@@ -27,15 +27,17 @@
     eFee: {
         label: "Fee",
         type: "number",
-        mandatory: true
+        mandatory: false
     },
     eTags: {
         label: "Tags (comma separate)",
-        type: "text"
+        type: "text",
+        mandatory: false
     },
     eMax: {
         label: "Max Participant",
-        type: "number"
+        type: "number",
+        mandatory: true
     },
     eLocation: {
         label: "Location",

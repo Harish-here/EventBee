@@ -1,43 +1,61 @@
 <template>
-    <div class="justify-center flex-column">
-        
-        <h3>Create A Event</h3>
-        <div class="flex flex-column w-80">
-            <span v-for='(j,index) in EventModel' :key='j.label' class='flex ma1 pa1'>
-                <label class='w-30 pa1'>{{ j.label }} <sup class='red' v-if='j.mandatory'>*</sup></label>
-                <input v-if="j.type !== 'textarea'"
-                       v-model='EventHolder[index]'
-                       :type="j.type"
-                       :name='j.label'
-                       @focusin='TempRemoveLabel(index)'
-                       @focusout="ValidateField(index,j)"
-                       :class='{"ba b--red" : Error.indexOf(index) >= 0}'
-                       class='' />
-                <textarea v-if="j.type === 'textarea'"
-                         :name="j.label" id="" cols="40" rows="3"
-                         :class='{"ba b--red" : Error.indexOf(index) >= 0}'
-                         @focusin='TempRemoveLabel(index)'
-                         @focusout="ValidateField(index,j)"
-                         v-model='EventHolder[index]'>
-                </textarea>
-                <span v-if='Error.indexOf(index) >= 0' class='red pa1'>Provide a Valid {{j.label}}</span>
-            </span>
-            
-            <label class='pa2'>Customized label for particpant <button @click='ChoosenCustom.push(JSON.parse(JSON.stringify(CustomeModel)))'>Add</button> <button @click='ChoosenCustom = []'>Remove All</button></label>
-            <span v-for='(i,index) in ChoosenCustom' :key='i.index' class='flex pa2'>
-                <input class='' type="text" v-model='i.label' />
-                <input type="checkbox" :name='"option"+index' v-model='i.option'>Mandoatory
-                <!-- <input type="radio" :name='"option"+index' value="optional" v-model='i.option'>optional -->
-                <select name="type" id="" v-model='i.type'>
-                    <option value="text">text</option>
-                    <option value="textarea">textarea</option>
-                    <option value="email">Email</option>
-                    <option value="number">number</option>
-                </select>
-                <button @click="ChoosenCustom.splice(index,1)">X</button>
-            </span>
-            <span><button @click='CreateEvent'>Create the event</button></span>
-            
+    <div class="flex justify-center">
+        <div class='w-60 bg-white pa4' style="overflow-y:auto">
+            <div class='f4 tc w-100 pa2'>Create A Event</div>
+            <div class="w-100">
+                <form @submit.prevent="CreateEvent">
+                    <div v-for='(j,index) in EventModel' :key='j.label' class='flex ma1 justify-center pa2'>
+                        <label class='w-30 pa1'>{{ j.label }} <sup class='red' v-if='j.mandatory'>*</sup></label>
+                        <span class='w-70'>
+                            <input v-if="j.type !== 'textarea'"
+                                v-model='EventHolder[index]'
+                                :type="j.type"
+                                :name='j.label'
+                                @focusin='TempRemoveLabel(index)'
+                                @focusout="ValidateField(index,j)"
+                                :class='{"ba b--red" : Error.indexOf(index) >= 0}'
+                                class='' />
+                            <textarea v-if="j.type === 'textarea'"
+                                    :name="j.label" id="" cols="40" rows="3"
+                                    :class='{"ba b--red" : Error.indexOf(index) >= 0}'
+                                    @focusin='TempRemoveLabel(index)'
+                                    @focusout="ValidateField(index,j)"
+                                    v-model='EventHolder[index]'>
+                            </textarea>
+                            <div v-if='Error.indexOf(index) >= 0' class='red pa1'>Provide a Valid {{j.label}}</div>
+                        </span>
+                        
+                    </div>
+                    
+                    <div class='pa2 w-75 tc flex justify-between items-baseline b'>
+                        <span class='f5'>Fields for User to Register</span>
+                        <button @click='ChoosenCustom.push(JSON.parse(JSON.stringify(CustomeModel)))'>Add + </button>
+                        <button @click='ChoosenCustom = []'>Remove All -</button>
+                    </div>
+                    <div class='pa2 flex flex-column justify-center'>
+                        <div v-for='(i,index) in ChoosenCustom' :key='i.index' class='flex justi items-baseline pa1 w-100'>
+                            <input class='ma1' type="text" v-model='i.label' />
+                            <span class='ma1 flex items-baseline'>
+                                <input type="checkbox"  :name='"option"+index' v-model='i.option'>Mandoatory
+                            </span>
+                            <!-- <input type="radio" :name='"option"+index' value="optional" v-model='i.option'>optional -->
+                            <span class='ma1'>Field type
+                                <select name="type" id=""  v-model='i.type'>
+                                    <option selected disabled>Field Type</option>
+                                    <option value="text">text</option>
+                                    <option value="textarea">textarea</option>
+                                    <option value="email">Email</option>
+                                    <option value="number">number</option>
+                                </select>
+                            </span>
+
+                            <button class='br3 ba b--light-silver bg-transparent' @click="ChoosenCustom.splice(index,1)">x</button>
+                        </div>
+                    </div>
+                    
+                    <div class='w-100 ma2 tc'><button @click='CreateEvent' type="submit">Create the event</button></div>
+                </form>
+            </div>
         </div>
     </div>
 </template>
@@ -126,9 +144,9 @@ export default {
 }
 </script>
 <style>
-input,textarea{
+input[type='text'],input[type='date'],input[type='time'],input[type='number'],textarea{
     width:250px !important;
-    height: 30px !important;
+    height: 30px ;
 }
 </style>
 
