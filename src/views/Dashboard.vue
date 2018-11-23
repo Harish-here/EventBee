@@ -1,6 +1,7 @@
 <template>
     <div class=' flex flex-column flex-wrap'>
         <EventCard :EventData='EventFeed' Type='participate' />
+        <div></div>
     </div>
 </template>
 
