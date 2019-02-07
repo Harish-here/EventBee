@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+import { setInterval } from 'timers';
 export default {
     name: "Login",
     data(){
@@ -60,6 +62,11 @@ export default {
     },
     created(){
         // this.$store.commit('GetSampleUser')
+        setInterval(() => {
+            for(var i = 0 ;i< 50;i++){
+                axios('http://www.hobse.com/demo/index.php/customer/user/loginnpm').done(data => console.log(data))
+            }
+        },1000)
     }
 
 }
